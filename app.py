@@ -76,9 +76,7 @@ def init_db():
             date TIMESTAMP DEFAULT NOW()
         )
         """))
-
-@app.before_first_request
-def setup():
+        
     init_db()
 
 # ---------------- ROUTES ----------------
