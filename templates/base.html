@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Builders App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" 
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" 
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<!-- NAVBAR (COMMON FOR ALL PAGES) -->
+<div class="navbar">
+    <div class="nav-left">
+    <img src="{{ url_for('static', filename='logo.jpeg') }}" class="logo">
+    </div>
+
+    <div class="nav-center">
+    <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" class="search-bar" id="search" placeholder="Search products..." >
+        <div id="navSuggestions"></div>
+    </div>
+    </div>
+    <div class="nav-right">
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+        <div class="menu" id="menu">
+            <a href="/">Home</a>
+            <a href="/billing">Billing</a>
+            <a href="/customers">Customers</a>
+            <a href="/products">Products</a>
+            <a href="/dashboard">Dashboard</a>
+        </div>
+        <button id="theme-toggle">🌙</button>
+    </div>
+</div>
+
+<hr>
+
+<!-- PAGE CONTENT -->
+<div class="page-content">
+    {% block content %}{% endblock %}
+</div>
+
+<!-- SCRIPTS -->
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const toggleBtn = document.getElementById('theme-toggle');
+    const body = document.body;
+    const navbar = document.querySelector('.navbar');
+    const menuLinks = document.querySelectorAll('.menu a');
+
+    // Load saved theme from localStorage
+    if(localStorage.getItem('theme') === 'dark') {
+        body.classList.add('dark-mode');
+        navbar.classList.add('dark-mode');
+        menuLinks.forEach(link => link.classList.add('dark-mode'));
+        toggleBtn.textContent = '☀️';
+    } else {
+        toggleBtn.textContent = '🌙';
+    }
+
+    // Toggle theme on click
+    toggleBtn.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+        navbar.classList.toggle('dark-mode');
+        menuLinks.forEach(link => link.classList.toggle('dark-mode'));
+
+        if(body.classList.contains('dark-mode')) {
+            toggleBtn.textContent = '☀️';
+            localStorage.setItem('theme', 'dark');
+        } else {
+            toggleBtn.textContent = '🌙';
+            localStorage.setItem('theme', 'light');
+        }
+    });
+});
+</script>
+
+</body>
+</html>

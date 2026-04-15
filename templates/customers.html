@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2> Customers</h2>
+
+<!-- Search box -->
+<input id="searchCustomer" placeholder="Search customer">
+
+<!-- Search results -->
+<div id="customerResults"></div>
+
+<!-- Full customer list -->
+<div id="customerList"></div>
+
+<!-- Include your main script -->
+<script src="/static/script.js"></script>
+
+<!-- Initialize customer functions -->
+<script>
+    // loadCustomers() and search functionality are already in script.js
+</script>
+{% endblock %}

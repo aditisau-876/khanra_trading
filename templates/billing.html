@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Billing</h2>
+
+<!-- CUSTOMER -->
+<input id="customer" placeholder="Customer Name">
+<button onclick="createBill()">Create Bill</button>
+
+<hr>
+
+<!-- SEARCH PRODUCT -->
+<input id="billingProductSearch" placeholder="Search product">
+<div id="billingSuggestions"></div>
+
+<!-- INPUTS -->
+<input id="qty" placeholder="Quantity">
+<input id="disc" placeholder="Discount %">
+<input type="number" id="gst" placeholder="Enter GST %">
+<button onclick="addItem()">Add Item</button>
+<hr>
+
+<!-- PAYMENT -->
+<h3>Payment Done</h3>
+<input id="payAmount" placeholder="Enter amount">
+<button onclick="addPayment()">Pay</button>
+
+<hr>
+<label>
+    <input type="checkbox" id="gst_inclusive" /> GST Inclusive 
+</label>
+<br/>
+<button id="downloadBtn">Download PDF</button>
+<div id="bill"></div>
+<script src="/static/script.js"></script>
+<script>
+document.getElementById("downloadBtn").onclick = function() {
+    const gstInclusive = document.getElementById("gst_inclusive").checked ? 1 : 0;
+    const billId = localStorage.getItem("bill_id");   // ✅ correct source
+
+    if (!billId) {
+        alert("No bill selected");
+        return;
+    }
+
+    window.open('/download_bill/' + billId + '?gst_inclusive=' + gstInclusive);
+};
+</script>
+
+{% endblock %}

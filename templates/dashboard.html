@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="dashboard">
+
+    <h2 class="dash-title"> Dashboard</h2>
+
+    <!-- KPI CARDS -->
+    <div class="kpi-grid">
+
+        <div class="card">
+            <h4>Today Sales</h4>
+            <h2 id="today">₹0</h2>
+        </div>
+
+        <div class="card">
+            <h4>Monthly Sales</h4>
+            <h2 id="month">₹0</h2>
+        </div>
+
+        <div class="card">
+            <h4>Yearly Sales</h4>
+            <h2 id="year">₹0</h2>
+        </div>
+
+        <div class="card danger">
+            <h4>Pending</h4>
+            <h2 id="pending">₹0</h2>
+        </div>
+
+    </div>
+
+    <!-- MONTH COMPARISON -->
+    <div class="card full">
+        <h3>📈 Monthly Comparison</h3>
+        <div id="monthCompare"></div>
+    </div>
+
+    <!-- CHART -->
+    <div class="card full chart-box">
+        <h3>📦 Top Products</h3>
+        <canvas id="productChart"></canvas>
+    </div>
+
+    <!-- CUSTOMER INSIGHTS -->
+    <div class="card full">
+        <h3>👥 Customers</h3>
+        <div id="customers"></div>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="/static/script.js"></script>
+{% endblock %}
