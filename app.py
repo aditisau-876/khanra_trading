@@ -18,9 +18,8 @@ app = Flask(__name__)
 DATABASE_URL = os.getenv("DATABASE_URL")
 
 if not DATABASE_URL:
-    raise ValueError("DATABASE_URL not set. Check your .env file.")
-
-if DATABASE_URL.startswith("postgres://"):
+    print("WARNING: DATABASE_URL not found")
+if DATABASE_URL and DATABASE_URL.startswith("postgres://"):
     DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
 
 print("VALUE:", repr(os.getenv("DATABASE_URL")))  # debug
@@ -33,6 +32,10 @@ engine = create_engine(
 
 # ---------------- DB INIT ----------------
 def init_db():
+    if not engine:
+        print("No DB connection")
+        return
+        
     with engine.begin() as conn:
 
         conn.execute(text("""
@@ -74,7 +77,9 @@ def init_db():
         )
         """))
 
-init_db()
+@app.before_first_request
+def setup():
+    init_db()
 
 # ---------------- ROUTES ----------------
 @app.route("/")
